@@ -421,7 +421,7 @@ Authorization: Bearer <jwt_token>
 ```
 
 _Request Body_
-
+```
  "title": "<title>",
   "date": "<date>",
   "venueName": "<venue_name>",
@@ -464,7 +464,7 @@ Authorization: Bearer <jwt_token>
 ```
 
 _Request Body_
-
+```
  "title": "<title>",
   "date": "<date>",
   "venueName": "<venue_name>",
@@ -538,7 +538,7 @@ _Response (500)_
 }
 ```
 
-## Events Endpoints
+## Profile Endpoints
 ## GET /api/profile/
 
 _Request Header_
