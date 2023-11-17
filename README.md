@@ -529,9 +529,39 @@ _Response (500)_
 ```
 
 ## Events Endpoints
-## PUT /api/profile/
-> Create event (admin only)
-> _Request Header_
+## GET /api/profile/
+```
+Authorization: Bearer <jwt_token>
+```
+
+_Request Body_
+
+```
+no need
+```
+_Response (404)_ 
+```
+{
+    "profile": <data_profile>,
+    "status": "message"
+}
+```
+_Response (404)_ 
+```
+{
+    "message": "Profile not found"
+}
+```
+_Response (500)_
+
+```
+{
+    message: 'Internal server error.',
+}
+```  
+## PUT /api/profile/edit
+> Edit profile
+ _Request Header_
 
 ```
 Authorization: Bearer <jwt_token>
