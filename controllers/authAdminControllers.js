@@ -1,5 +1,5 @@
 const { Admin } = require("../models");
-const { userSchema } = require("../helper/validateAtribute");
+const { adminSchema, loginSchema } = require("../helper/validateAtribute");
 const { hashPassword, comparePassword } = require("../utlis/bcrypt");
 const { generateToken } = require("../utlis/jwt");
 
@@ -8,7 +8,7 @@ exports.createAdmin = async (req, res) => {
     try{
         const { name, email, password} = req.body
 
-        const { error } = userSchema.validate({ name, email, password})
+        const { error } = adminSchema.validate({ name, email, password})
 
         if(error){
             return res.status(400).json({ message: error.details[0].message });
@@ -38,6 +38,12 @@ exports.createAdmin = async (req, res) => {
 exports.loginAdmin = async (req, res) => {
     try{
         const { email, password } = req.body;
+
+        const { error } = loginSchema.validate({ email, password})
+
+        if(error){
+            return res.status(400).json({ message: error.details[0].message });
+        }
 
         const admin = await Admin.findOne({where: { email }});
         if(!admin){

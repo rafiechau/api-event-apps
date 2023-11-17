@@ -1,5 +1,5 @@
 const { User, Profile } = require("../models");
-const { userSchema } = require("../helper/validateAtribute");
+const { userSchema, loginSchema, passwordChangeSchema, forgotSchema } = require("../helper/validateAtribute");
 const { hashPassword, comparePassword } = require("../utlis/bcrypt");
 const { generateToken } = require("../utlis/jwt");
 const sendEmail = require("../utlis/email");
@@ -49,6 +49,12 @@ exports.loginUser = async (req, res) => {
     try{
         const { email, password } = req.body;
 
+        const { error } = loginSchema.validate( { email, password } )
+
+        if(error){
+            return res.status(400).json({ message: error.details[0].message });
+        }
+
         const user = await User.findOne({where: { email }});
         if(!user){
             return res.status(401).json({ message: 'Invalid email or password' });
@@ -73,7 +79,7 @@ exports.loginUser = async (req, res) => {
 exports.deleteUser = async(req, res) => {
     try{
         const userId = req.user.id
-        console.log(userId)
+        // console.log(userId)
         const user = await User.findByPk(userId)
 
         if(!user){
@@ -81,7 +87,7 @@ exports.deleteUser = async(req, res) => {
         }
 
         await user.destroy();
-        res.json({ message: 'User and associated profile deleted successfully' });
+        res.status(200).json({ message: 'User and associated profile deleted successfully' });
     }catch(error){
         console.log(error)
         res.status(500).json({ message: 'Internal server error' });
@@ -90,9 +96,14 @@ exports.deleteUser = async(req, res) => {
 
 exports.changePasswordUser = async (req, res) => {
     try {
-        const userId = req.user.id; // Asumsikan ID pengguna disimpan di req.user
-        console.log(userId)
+        const userId = req.user.id; 
+        // console.log(userId)
         const { oldPassword, newPassword } = req.body;
+
+        const { error } = passwordChangeSchema.validate({ oldPassword, newPassword });
+        if (error) {
+            return res.status(400).json({ message: error.details[0].message });
+        }
 
         const user = await User.findByPk(userId);
         if (!user) {
@@ -112,7 +123,7 @@ exports.changePasswordUser = async (req, res) => {
         user.password = hashedPassword;
         await user.save();
 
-        res.json({ message: 'Password changed successfully' });
+        res.status(200).json({ message: 'Password changed successfully' });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Internal server error' });
@@ -122,6 +133,10 @@ exports.changePasswordUser = async (req, res) => {
 exports.forgotPassword = async (req, res) => {
     try {
         const { email } = req.body;
+        const { error } = forgotSchema.validate({ email });
+        if (error) {
+            return res.status(400).json({ message: error.details[0].message });
+        }
         const user = await User.findOne({ where: { email } });
 
         if (!user) {
@@ -142,7 +157,7 @@ exports.forgotPassword = async (req, res) => {
         const context = { password: defaultPassword };
 
         await sendEmail(email, "Password Reset", templateName, context);
-        res.json({ message: "Email with new password has been sent." });
+        res.status(200).json({ message: "Email with new password has been sent." });
 
     } catch (error) {
         console.error(error);

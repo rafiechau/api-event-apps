@@ -75,7 +75,7 @@ exports.deleteEvent = async (req, res) => {
     await event.destroy();
 
     // Kembalikan respons sukses
-    res.json({ message: "Event successfully deleted" });
+    res.status(200).json({ message: "Event successfully deleted" });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Internal server error' });

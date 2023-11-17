@@ -5,7 +5,6 @@ exports.editProfile = async (req, res) => {
     try{
     //dapat dari token
     const userId = req.user.id;
-    console.log(userId)
     const { firstName, lastName, address, phoneNumber } = req.body;
 
     const { error } = profileSchema.validate({ firstName, lastName, address, phoneNumber });

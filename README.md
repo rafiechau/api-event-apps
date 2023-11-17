@@ -267,8 +267,7 @@ _Response (200)_
 
 ```
 {
-  "message": "Login successful",
-  "token": "<jwt_token>"
+  "message": "Password changed successfully",
 }
 ```  
 _Response (400)_ - Joi Validation Error
@@ -309,10 +308,27 @@ _Request Body_
 ```
 {
   "email": "<email>",
-  "password": "<password>"
 }
 ```
+_Response (200)_
 
+```
+{
+  "message": "Email with new password has been sent.",
+}
+``` 
+_Response (400)_ - Joi Validation Error
+```
+{
+    "message": "email is required"
+}
+```
+_Response (404)_
+```
+{
+    "message": "User not found"
+}
+```
 _Response (500)_
 
 ```
@@ -324,8 +340,9 @@ _Response (500)_
 ## DELETE /api/user/delete
 > Delete account user
 _Request Header_
+
 ```
-not needed
+Authorization: Bearer <jwt_token>
 ```
 
 _Request Body_
@@ -336,7 +353,218 @@ _Request Body_
   "password": "<password>"
 }
 ```
+_Response (200)_
 
+```
+{
+  "message": "User and associated profile deleted successfully",
+}
+``` 
+_Response (404)_
+
+```
+{
+    message: 'User Not Found',
+}
+```
+_Response (500)_
+
+```
+{
+    message: 'Internal server error.',
+}
+```
+
+## Events Endpoints
+## GET /api/events
+> Get list event
+_Request Header_
+
+```
+no need
+```
+
+_Request Body_
+
+```
+no need
+```
+
+_Response (200)_
+
+```
+{
+  "status": "Success",
+  "events": [ <event_data> ]
+}
+``` 
+
+_Response (500)_
+
+```
+{
+    message: 'Internal server error.',
+}
+```
+## POST /api/events/create
+> Create event (admin only)
+_Request Header_
+
+```
+Authorization: Bearer <jwt_token>
+```
+
+_Request Body_
+
+ "title": "<title>",
+  "date": "<date>",
+  "venueName": "<venue_name>",
+  "jumlahTicket": <jumlah_ticket>
+```
+_Response (200)_
+
+```
+{
+  "message": "Event successfully created",
+  "event": { <event_data> }
+}
+``` 
+_Response (400)_ - Joi Validation Error
+```
+{
+    "message": "title is required"
+}
+```
+_Response (500)_
+
+```
+{
+    message: 'Internal server error.',
+}
+```
+## PUT /api/events/edit/<eventId>
+> Edit event (admin only)
+_Request Params_
+
+```
+/<eventId>
+```
+_Request Header_
+
+```
+Authorization: Bearer <jwt_token>
+```
+
+_Request Body_
+
+ "title": "<title>",
+  "date": "<date>",
+  "venueName": "<venue_name>",
+  "jumlahTicket": <jumlah_ticket>
+```
+_Response (200)_
+
+```
+{
+  "message": "Event successfully updated",
+  "event": { <event_data> }
+}
+``` 
+_Response (400)_ - Joi Validation Error
+```
+{
+    "message": "title is required"
+}
+```
+_Response (400)_ 
+```
+{
+    "message": "Event not found"
+}
+```
+_Response (500)_
+
+```
+{
+    message: 'Internal server error.',
+}
+```
+## DELETE /api/events/delete/<eventId>
+> Delete event (admin only)
+_Request Params_
+
+```
+/<eventId>
+```
+_Request Header_
+
+```
+Authorization: Bearer <jwt_token>
+```
+
+_Request Body_
+
+```
+no need
+```
+_Response (200)_
+
+```
+{
+  "message": "Event successfully deleted",
+}
+``` 
+_Response (400)_ 
+```
+{
+    "message": "Event not found"
+}
+```
+_Response (500)_
+
+```
+{
+    message: 'Internal server error.',
+}
+```
+
+## Events Endpoints
+## PUT /api/profile/
+> Create event (admin only)
+> _Request Header_
+
+```
+Authorization: Bearer <jwt_token>
+```
+
+_Request Body_
+
+```
+  "firstName": "<first_name>",
+  "lastName": "<last_name>",
+  "address": "<address>",
+  "phoneNumber": "<phone_number>"
+```
+_Response (200)_
+
+```
+{
+  "message": "Profile updated successfully",
+  "response": { <profile_data> }
+}
+``` 
+_Response (400)_ - Joi Validation Error
+```
+{
+    "message": "firtName is required"
+}
+```
+_Response (404)_ - Joi Validation Error
+```
+{
+    "message": "User not found"
+}
+```
 _Response (500)_
 
 ```
