@@ -110,7 +110,9 @@ _Response (400)_ - Joi Validation Error
 
 ## POST /api/admin/login
 > Login admin
+
 _Request Header_
+
 ```
 not needed
 ```
@@ -158,6 +160,7 @@ _Response (500)_
 ## POST /api/user/register
 
 > Register User
+
 _Request Header_
 ```
 not needed
@@ -204,6 +207,7 @@ _Response (500)_
 ```
 ## POST /api/user/login
 > Login User
+
 _Request Header_
 ```
 not needed
@@ -247,6 +251,7 @@ _Response (500)_
 
 ## PUT /api/user/change-password
 > Change Password User
+
 _Request Header_
 ```
 Authorization: Bearer <jwt_token>
@@ -295,6 +300,7 @@ _Response (500)_
 
 ## POST /api/user/forgot-password
 > Forgot password user
+
 _Request Header_
 ```
 not needed
@@ -336,6 +342,7 @@ _Response (500)_
 
 ## DELETE /api/user/delete
 > Delete account user
+
 _Request Header_
 
 ```
@@ -375,6 +382,7 @@ _Response (500)_
 ## Events Endpoints
 ## GET /api/events
 > Get list event
+
 _Request Header_
 
 ```
@@ -405,6 +413,7 @@ _Response (500)_
 ```
 ## POST /api/events/create
 > Create event (admin only)
+
 _Request Header_
 
 ```
@@ -441,11 +450,13 @@ _Response (500)_
 ```
 ## PUT /api/events/edit/<eventId>
 > Edit event (admin only)
+
 _Request Params_
 
 ```
 /<eventId>
 ```
+
 _Request Header_
 
 ```
@@ -488,11 +499,13 @@ _Response (500)_
 ```
 ## DELETE /api/events/delete/<eventId>
 > Delete event (admin only)
+
 _Request Params_
 
 ```
 /<eventId>
 ```
+
 _Request Header_
 
 ```
@@ -527,6 +540,8 @@ _Response (500)_
 
 ## Events Endpoints
 ## GET /api/profile/
+
+_Request Header_
 ```
 Authorization: Bearer <jwt_token>
 ```
@@ -558,6 +573,7 @@ _Response (500)_
 ```  
 ## PUT /api/profile/edit
 > Edit profile
+
  _Request Header_
 
 ```
