@@ -55,9 +55,6 @@ _Response (404)_
 ---
 
 ## RESTful Endpoints
-
-- ### Admin Endpoints
-
 ---
 
 ## Admin Endpoints
